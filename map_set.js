@@ -19,7 +19,7 @@ const map3 = new Map(Object.entries(obj));
 
 
 const solo = [ [1], [2], [3] ];
-const map4 = new Map(entries);
+const map4 = new Map(solo);
 for(let item of map4) { console.log(item); }
 
 
