@@ -35,7 +35,7 @@ console.log(typeof null); // "object"
 console.log(typeof undefined); // "undefined"
 console.log(typeof NaN); // "number"
 
-console.log("?????????");
+console.log("?????????"); // Не помню зачем
 console.log(null + null); // 0
 console.log(undefined + undefined); // NaN
 console.log(NaN + undefined); // NaN
