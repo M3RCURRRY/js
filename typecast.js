@@ -14,9 +14,9 @@ console.log(Number(NaN)); // NaN
 console.log(Number(null)); // 0
 
 console.log("Bitwise NOT to UF, NaN, null");
-console.log(~undefined); // хехмдааа -1
-console.log(~NaN); // хехмдааа -1
-console.log(~null); // хехмдааа -1
+console.log(~~undefined); // хехмдааа -1
+console.log(~~NaN); // хехмдааа -1
+console.log(~~null); // хехмдааа -1
 
 console.log("Logical NOT to UF, NaN, null");
 console.log(!undefined); // true
@@ -40,3 +40,10 @@ console.log(null + null); // 0
 console.log(undefined + undefined); // NaN
 console.log(NaN + undefined); // NaN
 console.log(null + undefined); // NaN
+
+let fooFather = {
+  name: 10,
+  fooSon: () => {
+      console.log(this.name);
+  },
+};
