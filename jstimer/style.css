@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Hubballi&display=swap");
+
+* {
+  font-family: 'Hubballi', Arial, Helvetica, sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.container {
+  margin: 0 auto;
+  margin-top: 100px;
+  margin-bottom: 20px;
+  width: 50%;
+  height: 400px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 20px;
+  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+  -webkit-box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+  -moz-box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+  box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+}
+
+.timer {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  color: white;
+  font-size: 50px;
+}
+
+.timer > span {
+  font-size: 100%;
+}
+
+.tools {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+
+.tools > button {
+  font-size: 25px;
+  color: white;
+
+  border: 1px solid white;
+  border-radius: 10px;
+
+  transition: color 0.1s ease-in;
+}
+
+.tools > button:hover {
+  color: black;
+}
+
+#laps {
+  text-align: center;
+  font-size: 25px;
+  margin: 0 auto;
+  width: 50%;
+  height: auto;
+
+  color: white;
+  border-radius: 20px;
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+
+
+#start {
+  background-color: green;
+}
+
+#stop {
+  background-color: red;
+}
+
+#lap {
+  background-color: blue;
+}
