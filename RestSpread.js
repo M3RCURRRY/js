@@ -87,6 +87,7 @@ console.log(b1); // undefined
 console.log(brest); // object (0 : Array[ ['first', 1], ..., ['third', 3] ])
 
 const [o1, o2, o3] = obj2;
+console.log(...obj2); // ['first', 1] ['second', 2] ['third', 3]
 console.log(`o1 : ${o1}, o2 : ${o2}, o3 : ${o3}`); // *pairs of entries*;
 
 const [a1, a2, a3] = array1;
