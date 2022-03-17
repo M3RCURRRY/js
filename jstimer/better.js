@@ -1,49 +1,86 @@
-let toggleStyles = [
-  ["Start", "#COLOR"], // Start button style
-  ["Stop", "#COLOR"] // Stop button style
-];
-
-let lapStyles = [
-  ["Lap", "#COLOR"], // Inactive lap style
-  ["Lap", ""], // Active lap style
-  ["Reset", ""] // Reset lap style
-];
-
-function ButtonContructor(btnRef, color) {
-  this.buttonReference = btnRef;
-  this.buttonColor = color;
-  this.changeState = function() {
-    this.buttonReference.disabled = !this.buttonReference.disabled;
+function toggleHandler() {
+  if (advTimer.value && advTimer.isPaused) { // Has value & paused
+    advTimer.state = 2;
+    advTimer.startTimer();
+  }
+  else if (!advTimer.value) { // No value & not started
+    advTimer.state = 2;
+    advTimer.startTimer();
+  }
+  else if (!advTimer.isPaused) { // Has value & running
+    advTimer.state = 3;
+    advTimer.stopTimer();
   }
 }
 
-
-let toggleButton = ButtonContructor();
-let lapButton = ButtonContructor();
-
-let buttonStateHandler = {
-  toStateInit() {
-    
+function lapHandler() {
+  if (advTimer.value && advTimer.isPaused) {
+    advTimer.state = 1;
+    advTimer.resetTimer();
+  }
+  else if (!advTimer.isPaused) {
+    advTimer.makeLap();
+  }
+  else {
+    console.log("Lap is inactive");
   }
 }
 
-
-let advancedTimer = {
-  globalValue: 0,
-  attemptValue: 0,
-  state: 0,
-  isTurned: false,
-  isPaused: false,
+let advTimer = {
+  state: 1,
+  value: 0,
+  lts: 0,
+  isPaused: true,
   timer: null,
-  startTimer: function () {
-    this.state = 1;
+
+  // State Handlers
+
+  toStateInit: () => {
+    document.getElementById("lapId").disabled = true;
+    document.getElementById("lapId").firstChild.data = "Lap";
+    document.getElementById("toggleId").firstChild.data = "Start";
+  },
+
+  toStatePaused: () => {
+    document.getElementById("lapId").disabled = false;
+    document.getElementById("lapId").firstChild.data = "Reset";
+    document.getElementById("toggleId").firstChild.data = "Start";
+  },
+
+  toStateRunning: () => {
+    document.getElementById("lapId").disabled = false;
+    document.getElementById("lapId").firstChild.data = "Lap";
+    document.getElementById("toggleId").firstChild.data = "Stop";
+  },
+
+  // Button Handlers
+
+  startTimer() {
+    this.isPaused = false;
+    this.toStateRunning();
+    this.lts = Date.now();
     this.timer = setInterval(() => {
-      
+      document.getElementById("timerId").innerHTML = this.value;
+      this.value += (Date.now() - this.lts);
+      console.log(this.value);
+      this.lts = Date.now();
     }, 17);
   },
-  stopTimer: function () {    
+
+  stopTimer() {
     clearInterval(this.timer);
+    this.isPaused = true;
+    this.toStatePaused();
+    console.log("stopTimer called");
   },
+
+  resetTimer: function() {
+
+  },
+
+  makeLap: function() {
+
+  }
 }
 
 /*
@@ -60,7 +97,7 @@ let advancedTimer = {
  - Active Lap
  - Active Stop
 
- State Paused : isTurned === true && isPaused === true
+ State Paused :
  - Active Reset
  - Active Start
  */
