@@ -33,24 +33,42 @@ let advTimer = {
   isPaused: true,
   timer: null,
 
+  // Time Converter
+  stringifyTime(s) {
+    let ms = s % 1000;
+    s = (s - ms) / 1000;
+    let secs = s % 60;
+    s = (s - secs) / 60;
+    let mins = s % 60;
+    let hrs = (s - mins) / 60;
+    return `${hrs}`.padStart(2, '0') + ':' + `${mins}`.padStart(2, '0') + ':' + 
+    `${secs}`.padStart(2, '0') + '.' + `${ms}`.padStart(3, '0');
+  },
+
   // State Handlers
 
   toStateInit: () => {
     document.getElementById("lapId").disabled = true;
     document.getElementById("lapId").firstChild.data = "Lap";
     document.getElementById("toggleId").firstChild.data = "Start";
+
+    document.getElementById("toggleId").style.backgroundColor = "rgba(144, 238, 144, 0.5)";
   },
 
   toStatePaused: () => {
     document.getElementById("lapId").disabled = false;
     document.getElementById("lapId").firstChild.data = "Reset";
     document.getElementById("toggleId").firstChild.data = "Start";
+
+    document.getElementById("toggleId").style.backgroundColor = "rgba(144, 238, 144, 0.5)";
   },
 
   toStateRunning: () => {
     document.getElementById("lapId").disabled = false;
     document.getElementById("lapId").firstChild.data = "Lap";
     document.getElementById("toggleId").firstChild.data = "Stop";
+
+    document.getElementById("toggleId").style.backgroundColor = "rgba(255, 0, 0, 0.5)";
   },
 
   // Button Handlers
@@ -60,7 +78,7 @@ let advTimer = {
     this.toStateRunning();
     this.lts = Date.now();
     this.timer = setInterval(() => {
-      document.getElementById("timerId").innerHTML = this.value;
+      document.getElementById("timerId").innerHTML = this.stringifyTime(this.value);
       this.value += (Date.now() - this.lts);
       console.log(this.value);
       this.lts = Date.now();
@@ -74,12 +92,23 @@ let advTimer = {
     console.log("stopTimer called");
   },
 
-  resetTimer: function() {
-
+  resetTimer() {
+    this.value = 0;
+    document.getElementById("timerId").innerHTML = this.stringifyTime(this.value);
+    this.toStateInit();
+    while (document.getElementById("stamp")) {
+      document.getElementById("stamp").remove();
+    }
+    console.log("resetTimer called");
   },
 
-  makeLap: function() {
-
+  makeLap() {
+    let lapPar = document.createElement("p");
+    let timeStamp = document.createTextNode(this.stringifyTime(this.value));
+    lapPar.appendChild(timeStamp);
+    lapPar.setAttribute("id", "stamp");
+    document.getElementById("lapsContainer").appendChild(lapPar);
+    console.log("makeLap called");
   }
 }
 
