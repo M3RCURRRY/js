@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8" />
-  <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="reset.css" />
-  <script type="text/javascript" src="script.js"></script>
+  <link rel="stylesheet" href="better.css" />
 </head>
 <body>
   <div class="wrapper">
+    <div class="sides"></div>
     <div class="container">
-      <div class="timer">
-        <span id="timerContent">Press start</span>
+      <div class="timerContainer">
+        <span id="timerId">Start the timer</span>
       </div>
-      <div class="tools">
-        <button id="start" onclick=startHandler()>Start</button>
-        <button id="stop" onclick=stopHandler()>Stop</button>
-        <button id="lap" onclick=lapHandler()>Lap</button>
+      <div class="controlsContainer">
+        <div class="buttonArea">
+          <button id="lapId" class="buttonLap" onclick="lapHandler()">Lap</button>
+          <button id="toggleId" class="buttonToggle" onclick="toggleHandler()">Start</button>
+        </div>
+        <div class="lapsArea" id="lapsContainer">
+          <p>All laps</p>
+        </div>
       </div>
     </div>
-    <div id="laps">
-      <span>All laps:</span>
-    </div>
+    <div class="sides"></div>
   </div>
+  <script type="text/javascript" src="better.js"></script>
 </body>
