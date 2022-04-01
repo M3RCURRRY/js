@@ -1,30 +1,7 @@
-let TICKRATE = 17;
-
-function toggleHandler() {
-  if (advTimer.value && advTimer.isPaused) { // Has value & paused
-    advTimer.state = 2;
-    advTimer.startTimer();
-  }
-  else if (!advTimer.value) { // No value & not started
-    advTimer.startTimer();
-  }
-  else if (!advTimer.isPaused) { // Has value & running
-    advTimer.stopTimer();
-  }
-}
-
-function lapHandler() {
-  if (advTimer.value && advTimer.isPaused) {
-    advTimer.state = 1;
-    advTimer.resetTimer();
-  }
-  else if (!advTimer.isPaused) {
-    domEditor.makeLap();
-  }
-  else {
-    console.log("Lap is inactive");
-  }
-}
+const TICKRATE = 17;
+const STATE_INIT = 1;
+const STATE_RUNNING = 2;
+const STATE_PAUSED = 3; 
 
 let advTimer = {
   /*
@@ -33,7 +10,7 @@ let advTimer = {
   2 - State run
   3 - State pause
   */
-  state: 1,
+  state: STATE_INIT,
   value: 0,
   lts: 0,
   isPaused: true,
@@ -41,7 +18,7 @@ let advTimer = {
 
   startTimer() {
     this.isPaused = false;
-    this.state = 2;
+    this.state = STATE_RUNNING;
     this.lts = Date.now();
     this.timer = setInterval(() => {
       this.value += (Date.now() - this.lts);
@@ -49,16 +26,16 @@ let advTimer = {
     }, TICKRATE);
   },
 
-  stopTimer() {
+  pauseTimer() {
     clearInterval(this.timer);
     this.isPaused = true;
-    this.state = 3;
-    console.log("stopTimer called");
+    this.state = STATE_PAUSED;
+    console.log("pauseTimer called");
   },
 
   resetTimer() {
     this.value = 0;
-    this.state = 1;
+    this.state = STATE_INIT;
     console.log("resetTimer called");
   },
 }
@@ -69,7 +46,7 @@ let advTimer = {
 
 let domEditor = {
   updater: null,
-  state: 1,
+  maksim: 1,
 
   timeToString(s) {
     let ms = s % 1000;
@@ -82,25 +59,29 @@ let domEditor = {
     `${secs}`.padStart(2, '0') + '.' + `${ms}`.padStart(3, '0');
   },
 
-  startResolver() {
-    this.updater = setInterval(() => {
-      switch(advTimer.state) {
-        case 1:
-          document.getElementById("timerId").innerHTML = this.timeToString(advTimer.value);
-          this.toStateInit();
-          break;
-        case 2:
-          document.getElementById("timerId").innerHTML = this.timeToString(advTimer.value);
-          this.toStateRunning();
-          break;
-        case 3:
-          this.toStatePaused();
-          break;
-        default:
-          console.log('Как так-то???');
-          break;
-      }
-    }, TICKRATE);
+  toggleHandler() {
+    if ((advTimer.value && advTimer.isPaused) || (!advTimer.value)) {
+      this.updater = setInterval(() => {
+        document.getElementById("timerId").innerHTML = this.timeToString(advTimer.value);
+      }, TICKRATE);
+      advTimer.startTimer();
+      this.toStateRunning();
+    }
+    else if (!advTimer.isPaused) {
+      clearInterval(this.updater);
+      advTimer.pauseTimer();
+      this.toStatePaused();
+    }
+  },
+
+  lapHandler() {
+    if (advTimer.value && advTimer.isPaused) {
+      advTimer.resetTimer();
+      this.toStateInit();
+    }
+    else if (!advTimer.isPaused) {
+      domEditor.makeLap();
+    }
   },
 
   toStateInit: () => {
@@ -138,7 +119,20 @@ let domEditor = {
     lapPar.setAttribute("id", "stamp");
     document.getElementById("lapsContainer").appendChild(lapPar);
     console.log("makeLap called");
+
+    if(this.maksim % 3 === 0) {
+      this.makeMaxim();
+    }
+    this.maksim++;
+    console.log(this.maksim);
+  },
+
+  makeMaxim() {
+    let maximPar = document.createElement("p");
+    let maximContent = document.createTextNode("🤡 я футбольный мячик 🤡");
+    maximPar.appendChild(maximContent);
+    maximPar.style.color = "red";
+    maximPar.setAttribute("id", "stamp");
+    document.getElementById("lapsContainer").appendChild(maximPar);
   }
 }
-
-domEditor.startResolver();
