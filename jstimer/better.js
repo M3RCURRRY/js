@@ -4,12 +4,6 @@ const STATE_RUNNING = 2;
 const STATE_PAUSED = 3; 
 
 let advTimer = {
-  /*
-  State codes:
-  1 - State init
-  2 - State run
-  3 - State pause
-  */
   state: STATE_INIT,
   value: 0,
   lts: 0,
