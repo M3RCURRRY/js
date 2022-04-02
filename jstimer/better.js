@@ -55,30 +55,28 @@ let domEditor = {
 
   toggleHandler() {
     if ((advTimer.value && advTimer.isPaused) || (!advTimer.value)) {
-      this.updater = setInterval(() => {
-        document.getElementById("timerId").innerHTML = this.timeToString(advTimer.value);
-      }, TICKRATE);
-      advTimer.startTimer();
       this.toStateRunning();
     }
     else if (!advTimer.isPaused) {
-      clearInterval(this.updater);
-      advTimer.pauseTimer();
       this.toStatePaused();
     }
   },
 
   lapHandler() {
     if (advTimer.value && advTimer.isPaused) {
-      advTimer.resetTimer();
       this.toStateInit();
     }
     else if (!advTimer.isPaused) {
-      domEditor.makeLap();
+      this.makeLap();
     }
   },
 
-  toStateInit: () => {
+  toStateInit() {
+    clearInterval(this.updater);
+    advTimer.resetTimer();
+    document.getElementById("timerId").innerHTML = this.timeToString(advTimer.value);
+
+
     document.getElementById("lapId").disabled = true;
     document.getElementById("lapId").firstChild.data = "Lap";
     document.getElementById("toggleId").firstChild.data = "Start";
@@ -90,7 +88,10 @@ let domEditor = {
     }
   },
 
-  toStatePaused: () => {
+  toStatePaused() {
+    clearInterval(this.updater);
+    advTimer.pauseTimer();
+
     document.getElementById("lapId").disabled = false;
     document.getElementById("lapId").firstChild.data = "Reset";
     document.getElementById("toggleId").firstChild.data = "Start";
@@ -98,7 +99,13 @@ let domEditor = {
     document.getElementById("toggleId").style.backgroundColor = "rgba(144, 238, 144, 0.5)";
   },
 
-  toStateRunning: () => {
+  toStateRunning() {
+    clearInterval(this.updater);
+    this.updater = setInterval(() => {
+      document.getElementById("timerId").innerHTML = this.timeToString(advTimer.value);
+    }, TICKRATE);
+    advTimer.startTimer();
+
     document.getElementById("lapId").disabled = false;
     document.getElementById("lapId").firstChild.data = "Lap";
     document.getElementById("toggleId").firstChild.data = "Stop";
