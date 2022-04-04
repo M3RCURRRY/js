@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Hubballi&display=swap');
+
+* {
+  font-family: 'Hubballi', Arial, Helvetica, sans-serif;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100vh;    
+}
+
+.farmContainer {
+  width: 85%;
+  height: 100%;
+}
+
+.playerBar {
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 100%;
+  height: 10%;
+  background-color: aquamarine;
+}
+
+.playerBar > ul {
+  width: 100%;
+  height: 100%;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.playerBar > ul > li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.barIcon {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.farmArea {
+  width: 100%;
+  height: 90%;
+  background-color: brown;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.field {
+  margin: 10px;
+  width: 20%;
+  height: 25%;
+  background-color: orange;
+  border-radius: 20px;
+}
