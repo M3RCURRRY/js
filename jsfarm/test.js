@@ -55,10 +55,13 @@ class Field {
     this.stage = 0;
 
     clearInterval(this.#growthTimer);
+    let field = document.getElementById(hint);
+    field.innerHTML = `${this.crop.name} [${this.stage} / ${this.crop.stages}]`;
     this.#growthTimer = setInterval(() => {
       let isStageGrewUp = Math.floor(Math.random() * 101) <= this.crop.chance;
       if (isStageGrewUp) {
         this.stage++;
+        field.innerHTML = `${this.crop.name} [${this.stage} / ${this.crop.stages}]`;
         console.log(`Grew up on ${this.stage} stage of ${this.crop.stages} of total.`);
       }
 
@@ -81,10 +84,10 @@ class Field {
   }
 
   static clickEvent(fieldPointer) {
-    console.log(fieldPointer);
     let field = document.getElementById(fieldPointer);
-    console.log(fieldMap.get(fieldPointer));
-
+    //console.log(fieldPointer);
+    //console.log(fieldMap.get(fieldPointer));
+    
     let selectedField = fieldMap.get(fieldPointer);
     selectedField.cropEditor(cropResolver(), fieldPointer);
     //let res = Math.floor(Math.random() * 101) <= this.crop.chance;
