@@ -5,19 +5,6 @@ const CROP_POTATO = 2;
 let currentCrop = CROP_WHEAT;
 let fieldMap = new Map();
 
-function cropResolver() {
-  switch (currentCrop) {
-    case CROP_WHEAT:
-      return new Crop("Wheat", 20, 3);
-    case CROP_CARROT:
-      return new Crop("Carrot", 15, 3);
-    case CROP_POTATO:
-      return new Crop("Potato", 15, 5);
-    default:
-      return;
-  }
-}
-
 let stats = {
   cropStored: 0,
 }
@@ -89,16 +76,22 @@ class Field {
     return this.crop === null;
   }
 
+  clearField() {
+    this.#isGrewUp = false;
+    this.crop = null;
+  }
+
   static fieldClickEvent(fieldId) {
     let clickedField = fieldMap.get(fieldId);
 
     if (clickedField.isGrewUp()) {
       DOMEditor.toStateEmpty(fieldId);
+      clickedField.clearField();
       console.log("Field's crop has been collected!");
     }
     else if (clickedField.isEmpty()) {
       DOMEditor.toStateGrowing(fieldId);
-      clickedField.addCropToField(cropResolver(), fieldId);
+      clickedField.addCropToField(Crop.cropResolver(), fieldId);
       console.log("Now field has been planted!");
     }
     else {
