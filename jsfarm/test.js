@@ -55,15 +55,6 @@ class Field {
     DOMEditor.createNewField(this.id);
   }
 
-  domFieldConstructor() {
-    let field = document.createElement("div");
-    field.innerHTML = "Empty";
-    field.setAttribute("id", this.id);
-    field.setAttribute("class", "field");
-    field.setAttribute("onclick", "Field.fieldClickEvent(this.id)");
-    document.getElementById("fieldArea").appendChild(field);
-  }
-
   addCropToField(cropObject, fieldId) {
     this.crop = cropObject;
     this.stage = 0;
@@ -84,18 +75,10 @@ class Field {
       if (this.stage === this.crop.stages) {
         clearInterval(this.#growthTimer);
         console.log(`${fieldId}'s crop ${this.crop.name} is grew up!`);
-        //this.domFieldEditor(fieldId);
         this.#isGrewUp = true;
         DOMEditor.toStateReady(fieldId);
       }
     }, 1000);
-  }
-
-  domFieldEditor(hint) {
-    let field = document.getElementById(hint);
-    field.innerHTML = `${hint} grew up!`;
-    field.style.backgroundColor = "green";
-    this.#isGrewUp = true;
   }
 
   isGrewUp() {
@@ -121,15 +104,11 @@ class Field {
     else {
       console.log("Please, wait!");
     }
-
-    // IMPORTANT!!!
-    //selectedField.cropEditor(cropResolver(), fieldId);
   }
 }
 
 let DOMEditor = {
   COLOR_EMPTY: "gray",
-  COLOR_NOT_READY: "red",
   COLOR_GROWING: "orange",
   COLOR_READY: "green",
 
@@ -137,26 +116,27 @@ let DOMEditor = {
     let field = document.createElement("div");
     field.innerHTML = "Empty";
     field.setAttribute("id", fieldId);
-    field.setAttribute("class", "field"); // Add style 
-    field.setAttribute("onclick", "Field.fieldClickEvent(this.id)"); // Add click handler
-    document.getElementById("fieldArea").appendChild(field); // Add field to DOM
+    field.setAttribute("class", "field");
+    field.style.backgroundColor = this.COLOR_EMPTY;
+    field.setAttribute("onclick", "Field.fieldClickEvent(this.id)");
+    document.getElementById("fieldArea").appendChild(field);
   },
 
   toStateEmpty(fieldId) {
     let field = document.getElementById(fieldId);
-    field.style.backgroundColor = "red";
+    field.style.backgroundColor = this.COLOR_EMPTY;
     field.innerHTML = "Empty";
   },
 
   toStateGrowing(fieldId) {
     let field = document.getElementById(fieldId);
-    field.style.backgroundColor = "orange";
+    field.style.backgroundColor = this.COLOR_GROWING;
   },
 
   toStateReady(fieldId) {
     let field = document.getElementById(fieldId);
     field.innerHTML = `${fieldId} grew up!`;
-    field.style.backgroundColor = "green";
+    field.style.backgroundColor = this.COLOR_READY;
   },
 
   updateFieldDOM(fieldId, fieldData) {
