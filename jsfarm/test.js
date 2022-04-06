@@ -2,14 +2,26 @@ const CROP_WHEAT = 0;
 const CROP_CARROT = 1;
 const CROP_POTATO = 2;
 
-let currentCrop = CROP_WHEAT;
-let fieldMap = new Map();
+const WHEAT_COST = 2;
+const CARROT_COST = 6;
+const POTATO_COST = 12;
 
+let FIELD_COST = 8;
+let fieldMap = new Map();
 let stats = {
   cropStored: 0,
 }
 
+let playerData = {
+  username: null,
+  balance: 10,
+
+}
+
 class Crop {
+
+  static currentCrop = CROP_WHEAT;
+
   constructor(name, chance, stages) {
     this.name = name;
     this.chance = chance;
@@ -17,7 +29,7 @@ class Crop {
   }
 
   static cropResolver() {
-    switch (currentCrop) {
+    switch (this.currentCrop) {
       case CROP_WHEAT:
         return new Crop("Wheat", 20, 3);
       case CROP_CARROT:
@@ -26,6 +38,23 @@ class Crop {
         return new Crop("Potato", 15, 5);
       default:
         return;
+    }
+  }
+
+  static selectCrop(cropId) {
+    switch(cropId) {
+      case "crop_WHEAT":
+        Crop.currentCrop = CROP_WHEAT;
+        break;
+      case "crop_CARROT":
+        Crop.currentCrop = CROP_CARROT;
+        break;
+      case "crop_POTATO":
+        Crop.currentCrop = CROP_POTATO;
+        break;
+      default:
+        console.log("default case");
+        break;
     }
   }
 }
