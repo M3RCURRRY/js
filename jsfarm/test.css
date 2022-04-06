@@ -40,7 +40,6 @@
   height: 100px;
 
   text-align: center;
-  margin: 0 auto;
 
   transition: background-color 0.15s ease-in-out;
 }

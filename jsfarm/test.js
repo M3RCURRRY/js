@@ -88,6 +88,8 @@ class Field {
       DOMEditor.toStateEmpty(fieldId);
       clickedField.clearField();
       console.log("Field's crop has been collected!");
+      stats.cropStored++;
+      console.log(stats.cropStored);
     }
     else if (clickedField.isEmpty()) {
       DOMEditor.toStateGrowing(fieldId);
