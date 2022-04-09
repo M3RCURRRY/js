@@ -33,6 +33,7 @@ let advTimer = {
     this.value = 0;
     this.state = STATE_INIT;
     this.laps = [0];
+    this.stamps = [0];
     console.log("resetTimer called");
   },
 
