@@ -8,13 +8,29 @@
   <div class="wrapper">
     <div class="sides"></div>
     <div class="container">
+      <div class="switchContainer">
+        <span>Timestamps</span>
+        <label class="switch">
+          <input type="checkbox" onchange="domEditor.switchHandler(this.checked)" />
+          <span class="slider round"></span>
+        </label>
+        <span>Laps</span>
+      </div>
       <div class="timerContainer">
         <span id="timerId">Start the timer</span>
       </div>
       <div class="controlsContainer">
         <div class="buttonArea">
-          <button id="lapId" class="buttonLap" onclick="domEditor.lapHandler()">Lap</button>
-          <button id="toggleId" class="buttonToggle" onclick="domEditor.toggleHandler()">Start</button>
+          <button id="lapId" class="buttonLap" onclick="domEditor.lapHandler()">
+            Lap
+          </button>
+          <button
+            id="toggleId"
+            class="buttonToggle"
+            onclick="domEditor.toggleHandler()"
+          >
+            Start
+          </button>
         </div>
         <div class="lapsArea" id="lapsContainer">
           <p>All laps</p>

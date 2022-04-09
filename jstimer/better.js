@@ -9,6 +9,8 @@ let advTimer = {
   lts: 0,
   isPaused: true,
   timer: null,
+  laps: [0],
+  stamps: [0],
 
   startTimer() {
     this.isPaused = false;
@@ -30,8 +32,22 @@ let advTimer = {
   resetTimer() {
     this.value = 0;
     this.state = STATE_INIT;
+    this.laps = [0];
     console.log("resetTimer called");
   },
+
+  getLaps() {
+    return this.laps.slice(1);
+  },
+
+  getTimestamps() {
+    return this.stamps.slice(1);
+  },
+
+  createTimestamp() {
+    this.laps.push(this.value - this.stamps.at(-1));
+    this.stamps.push(this.value);
+  }
 }
 
 //
@@ -40,7 +56,7 @@ let advTimer = {
 
 let domEditor = {
   updater: null,
-  maksim: 1,
+  mode: false,
 
   timeToString(s) {
     let ms = s % 1000;
@@ -67,7 +83,8 @@ let domEditor = {
       this.toStateInit();
     }
     else if (!advTimer.isPaused) {
-      this.makeLap();
+      advTimer.createTimestamp();
+      this.refreshLapList();
     }
   },
 
@@ -79,13 +96,11 @@ let domEditor = {
 
     document.getElementById("lapId").disabled = true;
     document.getElementById("lapId").firstChild.data = "Lap";
+    document.getElementById("lapId").style.backgroundColor = "rgba(85, 85, 85, 0.3)";
     document.getElementById("toggleId").firstChild.data = "Start";
 
     document.getElementById("toggleId").style.backgroundColor = "rgba(144, 238, 144, 0.5)";
-
-    while (document.getElementById("stamp")) {
-      document.getElementById("stamp").remove();
-    }
+    this.deleteTimestamps();
   },
 
   toStatePaused() {
@@ -107,33 +122,40 @@ let domEditor = {
     advTimer.startTimer();
 
     document.getElementById("lapId").disabled = false;
+    document.getElementById("lapId").style.backgroundColor = "rgba(85, 85, 85, 0.5)";
     document.getElementById("lapId").firstChild.data = "Lap";
     document.getElementById("toggleId").firstChild.data = "Stop";
 
     document.getElementById("toggleId").style.backgroundColor = "rgba(255, 0, 0, 0.5)";
   },
 
-  makeLap() {
+  deleteTimestamps() {
+    while (document.getElementById("stamp")) {
+      document.getElementById("stamp").remove();
+    }
+  },
+
+  switchHandler(switchMode) {
+    this.mode = switchMode;
+    this.refreshLapList();
+  },
+
+  refreshLapList() {
+    this.deleteTimestamps();
+    let lapData = (this.mode === true) ? advTimer.getLaps() : advTimer.getTimestamps();
+    for(let item of lapData) {
+      this.makeLap(item);
+    }
+  },
+
+  makeLap(value) {
     let lapPar = document.createElement("p");
-    let timeStamp = document.createTextNode(this.timeToString(advTimer.value));
+
+    let timeStamp = document.createTextNode(this.timeToString(value));
+    //let timeStamp = document.createTextNode(this.timeToString(advTimer.value));
     lapPar.appendChild(timeStamp);
     lapPar.setAttribute("id", "stamp");
     document.getElementById("lapsContainer").appendChild(lapPar);
     console.log("makeLap called");
-
-    if(this.maksim % 3 === 0) {
-      this.makeMaxim();
-    }
-    this.maksim++;
-    console.log(this.maksim);
-  },
-
-  makeMaxim() {
-    let maximPar = document.createElement("p");
-    let maximContent = document.createTextNode("🤡 я футбольный мячик 🤡");
-    maximPar.appendChild(maximContent);
-    maximPar.style.color = "red";
-    maximPar.setAttribute("id", "stamp");
-    document.getElementById("lapsContainer").appendChild(maximPar);
   }
 }
