@@ -86,3 +86,55 @@ try {
 pr1.catch(function (reject) {
   console.log(reject); // TypeError: "a" is read-only
 });
+
+
+const constA = 10;
+
+new Promise(function (resolve, reject) {
+  setTimeout(() => {
+    if (constA === 11) {
+      resolve("Success");
+    }
+    reject("Error");
+  }, 1000);
+})
+  .finally(() => {
+    console.log("Promise started");
+  })
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((error) => {
+    console.log(error); // Error
+  });
+
+fetch("https://no-such-server.blabla")
+  .then((response) => response.json())
+  .catch((err) => console.log(err)); // TypeError: failed to fetch
+
+new Promise(function (resolve, reject) {
+  //t = 100; //SyntaxError не ловит
+  throw new Error("Ошибо4ка"); // Словит
+
+  //Не ловит
+  /*
+  setTimeout(() => {
+    throw new Error("Ошибо4ка");
+  }, 1);
+  */
+}).catch(console.log);
+
+new Promise(function (resolve, reject) {
+  noSuchFunction();
+}).catch(console.log); // ReferenceError
+
+new Promise(function (resolve, reject) {
+  setTimeout(() => {
+    //noSuchFunction(); // Не словит
+    reject("Reject instead");
+  }, 0);
+})
+  .catch(console.log) // Reject instead
+  .then((resolve) => {
+    console.log("А теперь выведет ", resolve); // А теперь выведет undefined
+  });
