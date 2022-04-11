@@ -65,3 +65,24 @@ new Promise(function (resolve, reject) {
     console.log(result); // 4
     return result * 2;
   });
+
+
+let pr1 = null;
+try {
+  pr1 = new Promise((resolve, reject) => {
+    const a = 10;
+    try {
+      a = 40;
+    } catch (e) {
+      console.log(e.name); // TypeError
+      reject(e);
+    }
+    resolve(a);
+  });
+} catch (e) {
+  console.log(e.name); // Не ловит
+}
+
+pr1.catch(function (reject) {
+  console.log(reject); // TypeError: "a" is read-only
+});
