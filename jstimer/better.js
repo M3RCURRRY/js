@@ -3,14 +3,29 @@ const STATE_INIT = 1;
 const STATE_RUNNING = 2;
 const STATE_PAUSED = 3; 
 
+class Timestamp extends Object {
+  constructor(stamp, lap) {
+    super();
+    this._stamp = stamp;
+    this._lap = lap;
+  }
+
+  get stamp() {
+    return this._stamp;
+  }
+
+  get lap() {
+    return this._lap;
+  }
+}
+
 let advTimer = {
   state: STATE_INIT,
   value: 0,
   lts: 0,
   isPaused: true,
   timer: null,
-  laps: [0],
-  stamps: [0],
+  stamps: [new Timestamp(0,0)],
 
   startTimer() {
     this.isPaused = false;
@@ -32,22 +47,28 @@ let advTimer = {
   resetTimer() {
     this.value = 0;
     this.state = STATE_INIT;
-    this.laps = [0];
-    this.stamps = [0];
+    this.laps = [new Timestamp(0,0)];
+    this.stamps = [new Timestamp(0,0)];
     console.log("resetTimer called");
   },
 
   getLaps() {
-    return this.laps.slice(1);
+    let tmp = this.stamps.map((item) => {
+      return item.lap;
+    });
+    return tmp.slice(1);
   },
 
   getTimestamps() {
-    return this.stamps.slice(1);
+    let tmp = this.stamps.map((item) => {
+      return item.stamp;
+    })
+    return tmp.slice(1);
   },
 
   createTimestamp() {
-    this.laps.push(this.value - this.stamps.at(-1));
-    this.stamps.push(this.value);
+    let newLap = this.value - this.stamps.at(-1).stamp;
+    this.stamps.push(new Timestamp(this.value, newLap));
   }
 }
 
