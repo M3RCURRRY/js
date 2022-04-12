@@ -8,14 +8,27 @@ const POTATO_COST = 12;
 
 let FIELD_COST = 8;
 let fieldMap = new Map();
-let stats = {
-  cropStored: 0,
-}
+let cropStorage = new Map();
+cropStorage.set("Wheat", 0);
+cropStorage.set("Carrot", 0);
+cropStorage.set("Potato", 0);
 
-let playerData = {
+
+let Player = {
   username: null,
   balance: 10,
-
+  getBalance() {
+    return this.balance;
+  },
+  payToPlayer(earned) {
+    this.balance += earned;
+  },
+  setUsername() {
+    this.username = prompt("Enter your name", "");
+  },
+  getUsername() {
+    return this.username;
+  }
 }
 
 class Crop {
@@ -62,7 +75,6 @@ class Crop {
 class Field {
   #growthTimer = null;
   #isGrewUp = false;
-  #isPlanted = false;
 
   constructor(fieldID) {
     this.id = "field_" + fieldID;
@@ -115,10 +127,11 @@ class Field {
 
     if (clickedField.isGrewUp()) {
       DOMEditor.toStateEmpty(fieldId);
+      console.log(clickedField.crop);
+      cropStorage[clickedField.crop.name] = cropStorage.get(clickedField.crop.name) + 1;
+      console.log(cropStorage[clickedField.crop.name]);
       clickedField.clearField();
       console.log("Field's crop has been collected!");
-      stats.cropStored++;
-      console.log(stats.cropStored);
     }
     else if (clickedField.isEmpty()) {
       DOMEditor.toStateGrowing(fieldId);
@@ -166,6 +179,13 @@ let DOMEditor = {
   updateFieldDOM(fieldId, fieldData) {
     let field = document.getElementById(fieldId);
     field.innerHTML = fieldData;
+  },
+
+  startGame() {
+    Player.setUsername();
+    Player.getBalance();
+    document.getElementById("stat_USERNAME").innerHTML = Player.getUsername();
+    document.getElementById("stat_BALANCE").innerHTML = Player.getBalance();
   }
 }
 
@@ -176,3 +196,7 @@ function createFieldHandler() {
   fieldMap.set(field.id, field);
   currentID++;
 }
+
+DOMEditor.startGame();
+
+console.log(cropStorage);
