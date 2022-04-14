@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="reset.css" />
+  <link rel="stylesheet" href="test.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <div class="gameContainer">
+      <div class="statContainer">
+        <div>Username: <span id="stat_USERNAME"></span></div>
+        <div>Balance: <span id="stat_BALANCE"></span></div>
+  
+        <div>
+          Wheat stored: 
+          <span id="stat_WHEAT"></span>
+          <button id="crop_WHEAT" onclick="Crop.selectCrop(this.id)">Select seed</button>
+          <button id="crop_WHEAT" onclick="Crop.sellCrop(this.id)">Sell Wheat</button>
+        </div>
+        <div>
+          Carrot stored:
+          <span id="stat_CARROT"></span>
+          <button id="crop_CARROT" onclick="Crop.selectCrop(this.id)">Select seed</button>
+          <button id="crop_CARROT" onclick="Crop.sellCrop(this.id)">Sell Carrot</button>
+        </div>
+        <div>
+          Potato stored:
+          <span id="stat_POTATO"></span>
+          <button id="crop_POTATO" onclick="Crop.selectCrop(this.id)">Select seed</button>
+          <button id="crop_POTATO" onclick="Crop.sellCrop(this.id)">Sell Potato</button>
+        </div>
+      </div>
+
+      <div class="buttonArea">
+        <button onclick="createFieldHandler()">Click to plant a seed</button>
+        <button onclick="buyField()">Buy new field</button>
+      </div>
+
+      <div id="fieldArea" class="fieldArea">
+
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="test.js"></script>
+</body>
