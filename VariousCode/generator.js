@@ -54,3 +54,13 @@ console.log(res); // GeneratorFunctionProtoype
 for (let item of composeGen()) {
   console.log(item); // 10 60 160
 }
+
+function* gen() {
+  let result = yield "Enter value";
+  console.log(result); // 4
+}
+
+let gg = gen();
+let q = gg.next().value;
+gg.next(4);
+console.log(q); // Enter value
