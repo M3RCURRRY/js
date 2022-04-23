@@ -37,3 +37,10 @@ for (let item of g3) {
 }
 
 console.log(g3.next()); // value : undefined, done : true
+
+const g4 = iterGen();
+
+for (let i = 0; i < 1; i++) {
+  console.log(`Inc loop : ${g4.next().value}`); // Inc loop : a
+}
+console.log(g4.next().value); // b
