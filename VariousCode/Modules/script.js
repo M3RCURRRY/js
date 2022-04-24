@@ -10,5 +10,5 @@ console.log(weewee.boo());
 
 let {sayHi, sayBye} = await import('./good.js');
 
-hi();
-bye();
+sayHi();
+sayBye();
