@@ -5,3 +5,7 @@ export function bin2dec(b) {
 export function dec2bin(d) {
   return d.toString(2);
 }
+
+export let admin = {
+  name: "OldName",
+};

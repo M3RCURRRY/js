@@ -1,3 +1,5 @@
+import { admin } from "./loadMe";
+
 export function foo() {
   return "foo";
 }
@@ -6,6 +8,6 @@ export function boo() {
   return "boo";
 }
 
-export function poo() {
-  return "poo";
+export function adminName() {
+  return admin.name;
 }
