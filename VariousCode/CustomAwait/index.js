@@ -1,1 +1,1 @@
-export { default as awaitOnYields } from './awaitOnYields.js';
+export { default as awaitOnYields } from './awaitOnYields';
