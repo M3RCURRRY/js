@@ -126,3 +126,44 @@ try {
   console.log(`On delete ${e.message}`); // On delete Error: Access denied
 }
 
+//
+// Reflect
+//
+
+// Reflect set
+let userData = {};
+Reflect.set(userData, 'name', 'Alex');
+console.log(userData.name); // Alex
+
+userData = new Proxy(user, {
+  get(target, prop, receiver) {
+    return Reflect.get(target, prop, receiver); // (1)
+  },
+  set(target, prop, val, receiver) {
+    return Reflect.set(target, prop, val, receiver); // (2)
+  }
+});
+
+let name = user.name; // Alex
+user.name = "Grisha"; // теперь он у нас Гриша
+
+let defaultUser = {
+  _name: "User",
+  get name() {
+    return this._name;
+  }
+};
+
+let userProxy = new Proxy(user, {
+  get(target, prop, receiver) { // receiver -> admin
+    return Reflect.get(target, prop, receiver);
+  }
+});
+
+
+let admin = {
+  __proto__: userProxy,
+  _name: "Administrator"
+};
+
+console.log(admin.name); // Administrator
