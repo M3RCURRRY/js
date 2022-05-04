@@ -20,3 +20,14 @@ async function retValue() {
 retValue().then((r) => {
   console.log(r); // 10
 });
+
+async function retObj() {
+  let obj = {
+    value: 1000
+  };
+  return await obj;
+}
+
+retObj().then((r) => {
+  console.log(r); // {value : 1000}
+});
