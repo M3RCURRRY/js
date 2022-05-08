@@ -50,3 +50,28 @@ console.log(toString(document.body)); // [object Undefined]
 console.log(document.body instanceof HTMLElement); // true
 console.log(document.body instanceof EventTarget); // true
 console.log(document.body instanceof Node); // true
+
+/*
+  ELEMENT_NODE = 1;
+  ATTRIBUTE_NODE = 2;
+  TEXT_NODE = 3;
+  CDATA_SECTION_NODE = 4;
+  ENTITY_REFERENCE_NODE = 5; // legacy
+  ENTITY_NODE = 6; // legacy
+  PROCESSING_INSTRUCTION_NODE = 7;
+  COMMENT_NODE = 8;
+  DOCUMENT_NODE = 9;
+  DOCUMENT_TYPE_NODE = 10;
+  DOCUMENT_FRAGMENT_NODE = 11;
+  NOTATION_NODE = 12; // legacy
+*/
+console.log(document.body.nodeName); // BODY
+console.log(document.body.nodeType); // 1
+console.log(document.body.firstChild.nodeName); // #text
+console.log(document.body.firstChild.nodeType); // 3
+console.log(document.nodeName); // #document
+console.log(document.nodeType); // 9
+
+console.log(document.body.firstElementChild); // <h1>Header 1</h1>
+console.log(document.body.firstElementChild.innerHTML); // Header 1
+console.log(document.body.firstElementChild.outerHTML); // <h1>Header 1</h1>
