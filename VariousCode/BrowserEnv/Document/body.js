@@ -44,3 +44,9 @@ console.log(Array.isArray(resultForOf)); // true
 
 console.log(document.head.nextSibling); // #text
 console.log(document.head.nextSibling.nextSibling); // <body>...</body>
+
+console.log(document.body.constructor.name); // HTMLBodyElement
+console.log(toString(document.body)); // [object Undefined]
+console.log(document.body instanceof HTMLElement); // true
+console.log(document.body instanceof EventTarget); // true
+console.log(document.body instanceof Node); // true
