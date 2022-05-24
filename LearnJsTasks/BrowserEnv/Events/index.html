@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div id="text">Text to hide</div>
+    <input type="button" id="hidediv" value="Click to hide text" />
+    <input
+      type="button"
+      id="hideme"
+      value="Hide me!"
+      onclick="this.hidden = true"
+    />
+
+    <div id="field">
+      <img src="https://ru.js.cx/clipart/ball.svg" id="ball" /> . . . . . . . .
+      . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      . . . . . . . . . . . . . . . . . . . . .
+    </div>
+
+    <br /><br />
+
+    <div id="container">
+      <div class="pane">
+        <h3>Лошадь</h3>
+        <p>
+          Домашняя лошадь - животное семейства непарнокопытных, одомашненный и
+          единственный сохранившийся подвид дикой лошади, вымершей в дикой
+          природе, за исключением небольшой популяции лошади Пржевальского.
+        </p>
+        <button class="remove-button">[x]</button>
+      </div>
+      <div class="pane">
+        <h3>Осёл</h3>
+        <p>
+          Домашний осёл или ишак — одомашненный подвид дикого осла, сыгравший
+          важную историческую роль в развитии хозяйства и культуры человека. Все
+          одомашненные ослы относятся к африканским ослам.
+        </p>
+        <button class="remove-button">[x]</button>
+      </div>
+      <div class="pane">
+        <h3>Кошка</h3>
+        <p>
+          Кошка, или домашняя кошка (лат. Félis silvéstris cátus), — домашнее
+          животное, одно из наиболее популярных (наряду с собакой)
+          "животных-компаньонов". С точки зрения научной систематики, домашняя
+          кошка — млекопитающее семейства кошачьих отряда хищных. Ранее домашнюю
+          кошку нередко рассматривали как отдельный биологический вид.
+        </p>
+        <button class="remove-button">[x]</button>
+      </div>
+    </div>
+
+    <br /><br />
+
+    <table id="grid">
+      <thead>
+        <tr>
+          <th data-type="number">Возраст</th>
+          <th data-type="string">Имя</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>5</td>
+          <td>Вася</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Петя</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>Женя</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>Маша</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Илья</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <br /><br />
+
+    <script>
+      function handler() {
+        return false;
+      }
+    </script>
+
+    <a href="https://w3.org" onclick="return handler()"
+      >браузер откроет w3.org
+    </a>
+
+    <br /><br />
+
+    <fieldset id="contents">
+      <legend>#contents</legend>
+      <p>
+        Как насчёт того, чтобы прочитать
+        <a href="https://wikipedia.org">Википедию</a> или посетить
+        <a href="https://w3.org"><i>W3.org</i></a> и узнать о современных
+        стандартах?
+      </p>
+    </fieldset>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
