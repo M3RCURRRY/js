@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div contenteditable id="item">Editable div</div>
+
+    <script>
+
+      let data = "";
+
+      const observer = new MutationObserver((mutationRecords) => {
+        const div = document.getElementById("item");
+        data = div.innerHTML;
+        console.log(mutationRecords);
+        console.log(data);
+      });
+
+      observer.observe(item, {
+        childList: true,
+        subtree: true,
+        characterDataOldValue: true,
+      });
+    </script>
+  </body>
+</html>
