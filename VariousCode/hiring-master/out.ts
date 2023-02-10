@@ -1,0 +1,122 @@
+Object {
+  -  "0": Array [
+  -    Object {
+  -      "targetId": 0,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "1": Array [
+  -    Object {
+  -      "targetId": 1,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "2": Array [
+  -    Object {
+  -      "targetId": 2,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "3": Array [
+  -    Object {
+  -      "targetId": 3,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "4": Array [
+  -    Object {
+  -      "targetId": 4,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "5": Array [
+  -    Object {
+  -      "targetId": 5,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "6": Array [
+  -    Object {
+  -      "targetId": 6,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "7": Array [
+  -    Object {
+  -      "targetId": 7,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "8": Array [
+  -    Object {
+  -      "targetId": 8,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "9": Array [
+  -    Object {
+  -      "targetId": 9,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "10": Array [
+  -    Object {
+  -      "targetId": 10,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "11": Array [
+  -    Object {
+  -      "targetId": 11,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "12": Array [
+  -    Object {
+  -      "targetId": 12,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "13": Array [
+  -    Object {
+  -      "targetId": 13,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "14": Array [
+  -    Object {
+  -      "targetId": 14,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "15": Array [
+  -    Object {
+  -      "targetId": 15,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "16": Array [
+  -    Object {
+  -      "targetId": 16,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "17": Array [
+  -    Object {
+  -      "targetId": 17,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "18": Array [
+  -    Object {
+  -      "targetId": 18,
+  -      "action": "init",
+  -    },
+  -  ],
+  -  "19": Array [
+  -    Object {
+  -      "targetId": 19,
+  -      "action": "init",
+  -    },
+  -  ],
+   }
