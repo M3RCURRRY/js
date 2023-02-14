@@ -5,11 +5,13 @@ export default async function run(
   executor: IExecutor,
   queue: AsyncIterable<ITask>,
   maxThreads = 0
-) {  
+) {
+  maxThreads = Math.max(0, maxThreads);
 
   let stages = ['init', 'prepare', 'work', 'finalize', 'cleanup'];
   let execStatus = new Map<number, [boolean, string]>();
   let delayed: ITask[] = [];
+  let running: number = 0;
 
   async function executeDelayed() {
     for (let i in delayed) {
@@ -21,9 +23,11 @@ export default async function run(
 
         if (execStatus.get(delayedTask.targetId)?.[1] === prevAction) {
           execStatus.set(delayedTask.targetId, [true, delayedTask.action]);
+          running++;
           await executor.executeTask(delayedTask).then(
             () => {
               delayed[i] === null;
+              running--;
               execStatus.set(delayedTask.targetId, [false, delayedTask.action]);
             }
           );
@@ -41,8 +45,10 @@ export default async function run(
         const prevAction = stages[index - 1];
         if (execStatus.get(t.targetId)?.[1] === prevAction) {
           execStatus.set(t.targetId, [true, t.action])
+          running++;
           await executor.executeTask(t).then(
             () => {
+              running--;
               execStatus.set(t.targetId, [false, t.action]);
             }
         );
@@ -57,8 +63,10 @@ export default async function run(
         const prevAction = stages[index - 1];
         if (execStatus.get(task.targetId)?.[1] === prevAction) {
           execStatus.set(task.targetId, [true, task.action])
+          running++;
           await executor.executeTask(task).then(
             () => {
+              running--;
               execStatus.set(task.targetId, [false, task.action]);
             }
         );
@@ -69,7 +77,7 @@ export default async function run(
     }
   }
 
-  async function runThread() {
+  async function runThread(s: string) {
     let firstTask = (await queue[Symbol.asyncIterator]().next()).value;
     do {
       await executeFromQueue(firstTask);
@@ -77,13 +85,25 @@ export default async function run(
       firstTask = (await queue[Symbol.asyncIterator]().next()).value;
     }
     while (firstTask)
+
+    while(running) {
+      firstTask = (await queue[Symbol.asyncIterator]().next()).value;
+      if (firstTask) {
+        await executeFromQueue(firstTask);
+        await executeDelayed();
+      }
+
+      await new Promise(res => {
+        setTimeout(() => res(1), 10);
+      });
+    }
   }
 
   const threads: Promise<any>[] = [];
 
   for(let i = 0; i < (maxThreads || 12); i++) {
     threads.push(new Promise((res, rej) => {
-      res(runThread())
+      res(runThread(`${i}`))
     }))
   }
 
